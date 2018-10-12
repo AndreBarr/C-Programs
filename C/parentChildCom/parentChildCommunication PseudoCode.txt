@@ -1,0 +1,33 @@
+main
+validate()
+request memory
+initialize array to cml input
+display initial array
+do
+	fork
+	counter++
+while(fid != 0 && counter != nbrChildren)
+
+if (fid == 0)
+	childProcess()
+	exit()
+
+wait for children 
+display final array
+
+validate()
+	argc integer between 2 and 8
+	initalize uniqueArray [10]
+	while(unique == TRUE && count != argc - 1)
+		input = atoi(argv[i])
+		check input in range [0 - 9]
+		if(uniqueArray[input] != 0)
+			all nbrs not unique (unqiue = false)
+		else
+			uniqueArray[input]++
+	
+
+childProcess()
+	display array
+	array[counter] = counter * array[counter]
+	display array

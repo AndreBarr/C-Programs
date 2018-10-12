@@ -1,0 +1,61 @@
+main
+	validate(arg1,arg2)
+	makeDeck()
+	printDeck()
+	shuffleDeck()
+	printDeck()
+	dealOutHands()
+
+validate(arg1, arg2)
+	if((args1 in range) && (arg2 in range))
+		if(((arg1 * arg2) <= total cards))
+			return true
+		else false
+	else false
+
+makeDeck()
+	int deck[totalCards] = {empty}
+	for (for all index)
+		deck[index] = index
+	return deck
+
+printDeck(deck)
+	for(all cards)
+		cardRank = card % RANKS
+		   if (cardRank == 1)
+			card is A
+		   if (cardRank = 0)
+			card is K
+		   else if (cardRank == 10)		
+			card is Q
+		   else if (cardRank == 11)
+		   	card is J
+		   else
+			card is cardRank
+		if(card <= HEART*RANK)
+			is Heart
+		else if (card <= CLUB*RANKS)
+			is Club
+		else if (card <= DIAMOND*RANKS) 
+			is Diamond
+		else if (card <= SPADE*RANKS)
+			is Spade
+		print(card)
+		if (index % RANKS == 0)
+			print(\n)
+shuffleDeck(deck)
+	for (all cards)
+		randomNum = rand()
+		temp = deck[index]
+		deck[index] = deck[randomNum]
+		deck[randomNum] = temp
+	
+dealOutHands(deck)
+	int index
+	for(number of hands)
+		for(cards per hand)
+			print(deck[index])
+			index++
+			if(index % cardsPerHand == 0)
+				print(\n)
+		

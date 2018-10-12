@@ -1,0 +1,38 @@
+validateDates
+main
+	get(desiredDates)
+	if(desiredDates == 0)
+		desiredDates = INT_MAX
+	while(currentLine != EOF || !(validDates = desiredDates))
+		if(validateDate(currentLine) == TRUE)
+			printDate(currentLine)
+			validDates++
+	signalDone()
+
+validateDate(currentLine)
+	unsigned int month
+	unsigned int day
+	int year
+	long int testYear
+	scan(day, month, year)				
+	scan(no more info after year)
+	if(testYear != year || month > 12 || month == 0 || day == 0)
+		notValid
+	int isLeapYear = checkLeapYear(year)		
+	if(day > MONTHDAYS[isLeapYear][month])
+		notValid
+
+checkLeapYear(year)
+	textbook
+
+convertDates
+main
+	while(signalDone != done)
+		scan(date)
+		printDate
+	append (Dates.dat)
+
+printDate(day, month, year)
+	printf(day, MONTH_NAME[month], year)
+	
+	
