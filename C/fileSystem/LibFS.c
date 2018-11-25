@@ -910,19 +910,21 @@ int Dir_Create(char* path)
     return create_file_or_directory(1, path);
 }
 
-// Helper Function to see if path leads to Director or leads to a File
+// Helper Function to see if path leads to Directory or leads to a File
 int Get_Type_Of_Path(char* pathname) {
     char file_name[MAX_NAME];
     int token;
-    follow_path(pathname, &token, file_name); // Finding the Token
-    
-    if (token == -1) {
-        // Token is Invalid
-        return -1
+    int result = follow_path(pathname, &token, file_name); // Finding the Token
+    if (result == -1) {
+        return -1;
+    } else {
+        if (token == -1) { // Token is Invalid
+            return -1
+        }
+        
+        inode_t* inode = get_inode(token); // Getting the inode from the token
+        return inode->type; // Returning the Type
     }
-    
-    inode_t* inode = get_inode(token); // Getting the inode from the token
-    return inode->type; // Returning the Type
 }
 
 int Dir_Unlink(char* path)
@@ -955,6 +957,32 @@ int Dir_Unlink(char* path)
 int Dir_Size(char* path)
 {
     /* YOUR CODE */
+    // Checking Path Type
+    if (Get_Type_Of_Path(path) == 1) { // Checking if Path is a Directory
+        char file_name[MAX_NAME];
+        int token;
+        follow_path(path, &token, file_name); // Find the location of Token
+        inode_t* directory_inode = get_inode(token); // Get the inode of Token
+        
+        int byteCounter = 0;
+        int i; // initialize before for loop in order to compile with OCELOT
+        
+        for (i = 0; i < 30; i++) { // For all 30 allocated data blocks per file
+            int sector = (unsigned char) directory_inode->data[i];
+            char sectorBuffer[SECTOR_SIZE];
+            Disk_Read(sector, sectorBuffer); // Saving Data onto SectorBuffer
+            
+            int j;
+            for (j = 0; j < 25; j++) {
+                dirent_t* entry (dirent_t*)(sectorBuffer + (j*20)); // Multiply by 20 because each entry contains 16 byte names plus the 4 byte integer inode numbers
+                if (entry->inode > 0) {
+                    byteCounter += 20; // Because Each Entry is 20 Bytes
+                }
+            }
+        }
+        return byteCounter;
+    }
+    
     return 0;
 }
 
